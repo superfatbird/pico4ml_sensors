@@ -439,7 +439,7 @@ add_subdirectory("examples/hello_world")
 add_subdirectory("examples/person_detection")
 add_subdirectory("examples/magic_wand")
 add_subdirectory("examples/micro_speech")
-#add_subdirectory("examples/mnist")
+add_subdirectory("examples/magic_wand_lab")
 
 #add_subdirectory("tests/greedy_memory_planner_test")
 #add_subdirectory("tests/kernel_activations_test")
