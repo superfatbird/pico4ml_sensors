@@ -107,9 +107,10 @@ void setup() {
   }
 
   ST7735_FillScreen(ST7735_GREEN);
+  ST7735_DrawImage(0,0,80,40,(uint8_t*)IMU_ICM20948);
 
-  ST7735_WriteString(5, 20, "Magic", Font_11x18, ST7735_BLACK, ST7735_GREEN);
-  ST7735_WriteString(30, 45, "Wand", Font_11x18, ST7735_BLACK, ST7735_GREEN);
+  ST7735_WriteString(5, 45, "Magic", Font_11x18, ST7735_BLACK, ST7735_GREEN);
+  ST7735_WriteString(30, 65, "Wand", Font_11x18, ST7735_BLACK, ST7735_GREEN);
 
   gpio_init(LED_PIN);
   gpio_set_dir(LED_PIN, GPIO_OUT);
