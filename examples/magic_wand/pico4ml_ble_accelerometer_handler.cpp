@@ -13,8 +13,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-#include "accelerometer_handler.h"
 #include "ICM20948.h"
+#include "accelerometer_handler.h"
+#include <cstdio>
 #include <pico/stdio.h>
 
 // Buffer, save the last 200 groups of 3 channel values
@@ -47,12 +48,9 @@ static bool UpdateData() {
   }
 
   // raw data processing
-  //  x = x*4.0/32768.0;
-  //  y = y*4.0/32768.0;
-  //  z = z*4.0/32768.0;
   const float tmp_x       = -y;
-  const float tmp_y       = x;
-  const float tmp_z       = -z;
+  const float tmp_y       = -x;
+  const float tmp_z       = z;
   // Axis adjustment
   const float norm_x       = -tmp_x;
   const float norm_y       = tmp_y;
@@ -61,8 +59,8 @@ static bool UpdateData() {
   save_data[begin_index++] = norm_y * 1000;
   save_data[begin_index++] = norm_z * 1000;
 
-//   printf("norm_x : %.2f , norm_y %.2f , norm_z %.2f \n", norm_x * 1000, norm_y *
-//        1000, norm_z * 1000);
+   printf("x : %.2f , y %.2f , z %.2f \n", -norm_y * 1000, norm_x *
+        1000, norm_z * 1000);
 //   printf("%f\t%f\t%f\n", norm_x*1000, norm_y*1000, norm_z*1000);
 //         time_us_32() - last_sample_millis);
 

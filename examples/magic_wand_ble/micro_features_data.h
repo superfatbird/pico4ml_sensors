@@ -13,16 +13,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-#include "main_functions.h"
-#include "pico/stdio.h"
-// This is the default main used on systems that have the standard C entry
-// point. Other devices (for example FreeRTOS or ESP32) that have different
-// requirements for entry code (like an app_main function) should specialize
-// this main.cc file in a target-specific subfolder.
-int main(int argc, char *argv[]) {
-  stdio_init_all();
-  setup();
-  while (true) {
-    loop();
-  }
-}
+#ifndef TENSORFLOW_LITE_MICRO_EXAMPLES_MAGIC_WAND_RING_MICRO_FEATURES_DATA_H_
+#define TENSORFLOW_LITE_MICRO_EXAMPLES_MAGIC_WAND_RING_MICRO_FEATURES_DATA_H_
+
+#include <cstdint>
+extern const uint8_t micro_data[328];
+
+#endif  // TENSORFLOW_LITE_MICRO_EXAMPLES_MAGIC_WAND_RING_MICRO_FEATURES_DATA_H_

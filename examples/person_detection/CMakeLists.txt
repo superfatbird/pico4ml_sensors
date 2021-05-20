@@ -141,19 +141,18 @@ target_sources(person_detection_int8
     )
 
 target_link_libraries(
-    person_detection_int8
-    pico-tflmicro
-    hardware_pwm
-    hardware_pio
-    pico_stdlib
-    arducam
-    Config
-    LCD
+  person_detection_int8
+  pico-tflmicro
+  hardware_pwm
+  hardware_pio
+  pico_stdlib
+  arducam_hm01b0
+  LCD_st7735
 
 )
-# enable usb output, disable uart output
-pico_enable_stdio_usb(person_detection_int8 1)
+
 pico_enable_stdio_uart(person_detection_int8 0)
+pico_enable_stdio_usb(person_detection_int8 1)
 pico_add_extra_outputs(person_detection_int8)
 
 
@@ -186,9 +185,8 @@ target_link_libraries(
   image_provider_test_int8
   pico-tflmicro
   hardware_pwm
-  arducam
-  Config
-  LCD
+  arducam_hm01b0
+  LCD_st7735
 )
 
 pico_add_extra_outputs(image_provider_test_int8)
