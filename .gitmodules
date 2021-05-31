@@ -1,12 +1,12 @@
 [submodule "include/LCD_st7735"]
 	path = include/LCD_st7735
-	url = https://github.com/Arducam/LCD_st7735
+	url = git@github.com:Arducam-team/LCD_st7735
 [submodule "include/arducam_mic"]
 	path = include/arducam_mic
-	url = https://github.com/Arducam/arducam_mic
+	url = git@github.com:Arducam-team/arducam_mic
 [submodule "include/arducam_hm01b0"]
 	path = include/arducam_hm01b0
-	url = https://github.com/Arducam/arducam_hm01b0
+	url = git@github.com:Arducam-team/arducam_hm01b0
 [submodule "include/ICM20948"]
 	path = include/ICM20948
-	url = https://github.com/Arducam/ICM20948
+	url = git@github.com:Arducam-team/ICM20948
