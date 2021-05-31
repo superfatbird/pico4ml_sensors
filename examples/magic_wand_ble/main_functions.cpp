@@ -22,7 +22,6 @@ limitations under the License.
 
 #include "imu_provider.h"
 #include "magic_wand_model_data.h"
-#include "micro_features_data.h"
 #include "rasterize_stroke.h"
 
 #define SCREEN 1
@@ -39,10 +38,9 @@ limitations under the License.
 #define UART_TX_PIN 0
 #define UART_RX_PIN 1
 namespace {
-bool     linked                        = false;
-bool     first                         = true;
-uint16_t send_index                    = 0;
-uint8_t  stroke_struct_buffer_tmp[328] = { 0 };
+bool     linked     = false;
+bool     first      = true;
+uint16_t send_index = 0;
 
 // Constants for image rasterization
 constexpr int raster_width      = 32;
@@ -203,7 +201,7 @@ void setup() {
   }
 #if SCREEN
   ST7735_FillScreen(ST7735_GREEN);
-  ST7735_DrawImage(0,0,80,40,(uint8_t*)IMU_ICM20948);
+  ST7735_DrawImage(0, 0, 80, 40, (uint8_t *)IMU_ICM20948);
 
   ST7735_WriteString(5, 45, "Magic", Font_11x18, ST7735_BLACK, ST7735_GREEN);
   ST7735_WriteString(30, 70, "Wand", Font_11x18, ST7735_BLACK, ST7735_GREEN);
@@ -227,7 +225,7 @@ void loop() {
 #if 1
     if (linked) {
       if (first) {
-//        sleep_ms(5000);
+        //        sleep_ms(5000);
         first = false;
       }
       if (send_index++ % 16 == 0) {
@@ -250,22 +248,25 @@ void loop() {
     // Rasterize the gesture
     RasterizeStroke(stroke_points, *stroke_transmit_length, 0.6f, 0.6f, raster_width,
                     raster_height, raster_buffer);
+    auto *   displayBuf = new uint8_t[96 * 96 * 2];
+    uint16_t index      = 0;
     for (int y = 0; y < raster_height; ++y) {
       char line[raster_width + 1];
       for (int x = 0; x < raster_width; ++x) {
         const int8_t *pixel =
           &raster_buffer[(y * raster_width * raster_channels) + (x * raster_channels)];
-        const int8_t red   = pixel[0];
-        const int8_t green = pixel[1];
-        const int8_t blue  = pixel[2];
-        char         output;
+        const int8_t red      = pixel[0];
+        const int8_t green    = pixel[1];
+        const int8_t blue     = pixel[2];
+        char         output   = '.';
+        uint16_t     imageRGB = ST7735_COLOR565(0, 255, 0);
         if ((red > -128) || (green > -128) || (blue > -128)) {
-          output = '#';
+          output   = '#';
+          imageRGB = ST7735_COLOR565(0, 0, 0);
         }
-        else {
-          output = '.';
-        }
-        line[x] = output;
+        line[x]             = output;
+        displayBuf[index++] = (uint8_t)(imageRGB >> 8) & 0xFF;
+        displayBuf[index++] = (uint8_t)(imageRGB)&0xFF;
       }
       line[raster_width] = 0;
       printf("%s\n", line);
@@ -298,13 +299,15 @@ void loop() {
     TF_LITE_REPORT_ERROR(error_reporter, "Found %s (%d%%)", labels[max_index],
                          ((max_score + 128) * 100) >> 8);
 #if SCREEN
+
     char str[10];
-    sprintf(str, "%d%%", ((max_score + 128) * 100) >> 8);
+    sprintf(str, "%s:%d%%", labels[max_index], ((max_score + 128) * 100) >> 8);
 
     ST7735_FillRectangle(0, 90, ST7735_WIDTH, 160 - 90, ST7735_GREEN);
-    ST7735_WriteString(35, 100, labels[max_index], Font_11x18, ST7735_BLACK,
-                       ST7735_GREEN);
-    ST7735_WriteString(25, 130, str, Font_11x18, ST7735_BLACK, ST7735_GREEN);
+    ST7735_FillRectangle(23, 90, 34, 34, ST7735_BLACK);
+    ST7735_DrawImage(24, 91, 32, 32, displayBuf);
+    ST7735_WriteString(15, 130, str, Font_11x18, ST7735_BLACK, ST7735_GREEN);
 #endif
+    delete[] displayBuf;
   }
 }
