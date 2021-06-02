@@ -40,7 +40,6 @@ target_link_libraries(
 
 pico_add_extra_outputs(gesture_predictor_test)
 
-
 add_executable(gesture_output_handler_test "")
 
 target_include_directories(gesture_output_handler_test
@@ -74,7 +73,6 @@ target_link_libraries(
 )
 
 pico_add_extra_outputs(gesture_output_handler_test)
-
 
 add_executable(pico4ml_magic_wand "")
 
@@ -212,7 +210,6 @@ pico_enable_stdio_usb(magic_wand_test 1)
 pico_enable_stdio_uart(magic_wand_test 0)
 
 pico_add_extra_outputs(magic_wand_test)
-
 
 add_executable(gesture_accelerometer_handler_test "")
 

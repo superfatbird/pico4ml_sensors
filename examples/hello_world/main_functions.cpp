@@ -15,10 +15,10 @@ limitations under the License.
 
 #include "main_functions.h"
 
-#include "tensorflow/lite/micro/all_ops_resolver.h"
 #include "constants.h"
 #include "model.h"
 #include "output_handler.h"
+#include "tensorflow/lite/micro/all_ops_resolver.h"
 #include "tensorflow/lite/micro/micro_error_reporter.h"
 #include "tensorflow/lite/micro/micro_interpreter.h"
 #include "tensorflow/lite/schema/schema_generated.h"
@@ -26,15 +26,15 @@ limitations under the License.
 
 // Globals, used for compatibility with Arduino-style sketches.
 namespace {
-tflite::ErrorReporter* error_reporter = nullptr;
-const tflite::Model* model = nullptr;
-tflite::MicroInterpreter* interpreter = nullptr;
-TfLiteTensor* input = nullptr;
-TfLiteTensor* output = nullptr;
-int inference_count = 0;
+tflite::ErrorReporter *   error_reporter  = nullptr;
+const tflite::Model *     model           = nullptr;
+tflite::MicroInterpreter *interpreter     = nullptr;
+TfLiteTensor *            input           = nullptr;
+TfLiteTensor *            output          = nullptr;
+int                       inference_count = 0;
 
 constexpr int kTensorArenaSize = 2000;
-uint8_t tensor_arena[kTensorArenaSize];
+uint8_t       tensor_arena[kTensorArenaSize];
 }  // namespace
 
 // The name of this function is important for Arduino compatibility.
@@ -61,8 +61,8 @@ void setup() {
   static tflite::AllOpsResolver resolver;
 
   // Build an interpreter to run the model with.
-  static tflite::MicroInterpreter static_interpreter(
-      model, resolver, tensor_arena, kTensorArenaSize, error_reporter);
+  static tflite::MicroInterpreter static_interpreter(model, resolver, tensor_arena,
+                                                     kTensorArenaSize, error_reporter);
   interpreter = &static_interpreter;
 
   // Allocate memory from the tensor_arena for the model's tensors.
@@ -73,7 +73,7 @@ void setup() {
   }
 
   // Obtain pointers to the model's input and output tensors.
-  input = interpreter->input(0);
+  input  = interpreter->input(0);
   output = interpreter->output(0);
 
   // Keep track of how many inferences we have performed.
@@ -86,8 +86,8 @@ void loop() {
   // inference_count to the number of inferences per cycle to determine
   // our position within the range of possible x values the model was
   // trained on, and use this to calculate a value.
-  float position = static_cast<float>(inference_count) /
-                   static_cast<float>(kInferencesPerCycle);
+  float position =
+    static_cast<float>(inference_count) / static_cast<float>(kInferencesPerCycle);
   float x = position * kXrange;
 
   // Quantize the input from floating-point to integer
@@ -115,5 +115,6 @@ void loop() {
   // Increment the inference_counter, and reset it if we have reached
   // the total number per cycle
   inference_count += 1;
-  if (inference_count >= kInferencesPerCycle) inference_count = 0;
+  if (inference_count >= kInferencesPerCycle)
+    inference_count = 0;
 }

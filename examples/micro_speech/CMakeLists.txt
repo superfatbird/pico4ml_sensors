@@ -43,7 +43,6 @@ target_link_libraries(
 
 pico_add_extra_outputs(audio_provider_mock_test)
 
-
 add_executable(feature_provider_mock_test "")
 
 target_include_directories(feature_provider_mock_test
@@ -126,7 +125,6 @@ target_link_libraries(
 )
 
 pico_add_extra_outputs(feature_provider_mock_test)
-
 
 add_executable(micro_speech "")
 
@@ -221,7 +219,6 @@ pico_enable_stdio_uart(micro_speech 0)
 
 pico_add_extra_outputs(micro_speech)
 
-
 add_executable(simple_features_generator_test "")
 
 target_include_directories(simple_features_generator_test
@@ -263,7 +260,6 @@ target_link_libraries(
 
 pico_add_extra_outputs(simple_features_generator_test)
 
-
 add_executable(command_responder_test "")
 
 target_include_directories(command_responder_test
@@ -295,7 +291,6 @@ target_link_libraries(
 )
 
 pico_add_extra_outputs(command_responder_test)
-
 
 add_executable(micro_speech_mock "")
 
@@ -390,7 +385,6 @@ target_link_libraries(
 
 pico_add_extra_outputs(micro_speech_mock)
 
-
 add_executable(micro_features_generator_test "")
 
 target_include_directories(micro_features_generator_test
@@ -470,7 +464,6 @@ target_link_libraries(
 
 pico_add_extra_outputs(micro_features_generator_test)
 
-
 add_executable(feature_provider_test "")
 
 target_include_directories(feature_provider_test
@@ -547,7 +540,6 @@ target_link_libraries(
 
 pico_add_extra_outputs(feature_provider_test)
 
-
 add_executable(micro_speech_test "")
 
 target_include_directories(micro_speech_test
@@ -589,7 +581,6 @@ pico_enable_stdio_uart(micro_speech_test 0)
 
 pico_add_extra_outputs(micro_speech_test)
 
-
 add_executable(audio_provider_test "")
 
 target_include_directories(audio_provider_test
@@ -624,7 +615,6 @@ target_link_libraries(
 )
 
 pico_add_extra_outputs(audio_provider_test)
-
 
 add_executable(recognize_commands_test "")
 

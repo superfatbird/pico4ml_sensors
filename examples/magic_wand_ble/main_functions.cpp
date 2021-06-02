@@ -255,13 +255,15 @@ void loop() {
       for (int x = 0; x < raster_width; ++x) {
         const int8_t *pixel =
           &raster_buffer[(y * raster_width * raster_channels) + (x * raster_channels)];
-        const int8_t red      = pixel[0];
-        const int8_t green    = pixel[1];
-        const int8_t blue     = pixel[2];
-        char         output   = '.';
-        uint16_t     imageRGB = ST7735_COLOR565(0, 255, 0);
+        const int8_t red    = pixel[0];
+        const int8_t green  = pixel[1];
+        const int8_t blue   = pixel[2];
+        char         output = '.';
+        // default green
+        uint16_t imageRGB = ST7735_COLOR565(0, 255, 0);
         if ((red > -128) || (green > -128) || (blue > -128)) {
-          output   = '#';
+          output = '#';
+          // black
           imageRGB = ST7735_COLOR565(0, 0, 0);
         }
         line[x]             = output;

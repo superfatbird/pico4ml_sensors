@@ -24,7 +24,7 @@ limitations under the License.
 
 #include <cstdint>
 
-extern const int g_no_person_data_size;
+extern const int     g_no_person_data_size;
 extern const uint8_t g_no_person_data[];
 
 #endif  // TENSORFLOW_LITE_MICRO_EXAMPLES_PERSON_DETECTION_NO_PERSON_IMAGE_DATA_H_

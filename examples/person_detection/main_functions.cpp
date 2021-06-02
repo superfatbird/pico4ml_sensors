@@ -97,7 +97,6 @@ void setup_uart() {
 void setup_uart() {}
 #endif
 
-
 // The name of this function is important for Arduino compatibility.
 void setup() {
   gpio_init(LED_PIN);
@@ -161,7 +160,6 @@ void setup() {
     TF_LITE_REPORT_ERROR(error_reporter, "Set up failed\n");
   }
   gpio_put(LED_PIN, !gpio_get(LED_PIN));
-
 }
 
 // The name of this function is important for Arduino compatibility.
@@ -176,6 +174,7 @@ void loop() {
       != GetImage(error_reporter, kNumCols, kNumRows, kNumChannels, input->data.int8)) {
     TF_LITE_REPORT_ERROR(error_reporter, "Image capture failed.");
   }
+
 #if EXECUTION_TIME
   TF_LITE_MICRO_EXECUTION_TIME_SNIPPET_END(error_reporter, "GetImage")
   TF_LITE_MICRO_EXECUTION_TIME_SNIPPET_START(error_reporter)
