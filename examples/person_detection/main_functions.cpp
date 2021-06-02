@@ -53,7 +53,7 @@ TfLiteTensor *            input          = nullptr;
 // signed value.
 
 // An area of memory to use for input, output, and intermediate arrays.
-constexpr int  kTensorArenaSize = 136 * 1024;
+constexpr int  kTensorArenaSize = 54 * 1024+27*1024;
 static uint8_t tensor_arena[kTensorArenaSize];
 }  // namespace
 
@@ -105,7 +105,10 @@ void setup() {
 
   setup_uart();
   stdio_usb_init();
-
+  TfLiteStatus setup_status = ScreenInit(error_reporter);
+  if (setup_status != kTfLiteOk) {
+    TF_LITE_REPORT_ERROR(error_reporter, "Set up failed\n");
+  }
   // Set up logging. Google style is to avoid globals or statics because of
   // lifetime uncertainty, but since this has a trivial destructor it's okay.
   // NOLINTNEXTLINE(runtime-global-variables)
@@ -155,10 +158,7 @@ void setup() {
   input = interpreter->input(0);
 
 #endif
-  TfLiteStatus setup_status = ScreenInit(error_reporter);
-  if (setup_status != kTfLiteOk) {
-    TF_LITE_REPORT_ERROR(error_reporter, "Set up failed\n");
-  }
+
   gpio_put(LED_PIN, !gpio_get(LED_PIN));
 }
 

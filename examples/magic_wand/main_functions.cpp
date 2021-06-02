@@ -41,7 +41,7 @@ int                       input_length;
 // Create a memory area for input, output and intermediate arrays.
 // The size depends on the model you are using and may need to be determined
 // experimentally.
-constexpr int kTensorArenaSize = 60 * 1024;
+constexpr int kTensorArenaSize = 14 * 1024 + 1332;
 uint8_t       tensor_arena[kTensorArenaSize];
 
 }  // namespace

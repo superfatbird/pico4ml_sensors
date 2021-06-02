@@ -14,6 +14,7 @@ limitations under the License.
 ==============================================================================*/
 
 #include "main_functions.h"
+#include <pico/time.h>
 
 #include "LCD_st7735.h"
 #include "audio_provider.h"
@@ -41,7 +42,7 @@ int32_t                   previous_time    = 0;
 // Create a memory area for input, output and intermediate arrays.
 // The size of this will depend on the model you're using,
 // and may need to be determined by experimentation.
-constexpr int kTensorArenaSize = 10 * 1024;
+constexpr int kTensorArenaSize = 6 * 1024+1360;
 uint8_t       tensor_arena[kTensorArenaSize];
 int8_t        feature_buffer[kFeatureElementCount];
 int8_t *      model_input_buffer = nullptr;
@@ -52,6 +53,7 @@ void setup() {
 #if SCREEN
   ST7735_Init();
   ST7735_DrawImage(0, 0, 80, 160, arducam_logo);
+  sleep_ms(2000);
 #endif
 
   // Set up logging. Google style is to avoid globals or statics because of

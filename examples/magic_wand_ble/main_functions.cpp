@@ -52,7 +52,7 @@ int8_t        raster_buffer[raster_byte_count];
 // Create an area of memory to use for input, output, and intermediate arrays.
 // The size of this will depend on the model you're using, and may need to be
 // determined by experimentation.
-constexpr int kTensorArenaSize = 30 * 1024;
+constexpr int kTensorArenaSize = 7 * 1024 + 1888;
 uint8_t       tensor_arena[kTensorArenaSize];
 
 tflite::ErrorReporter *   error_reporter = nullptr;
