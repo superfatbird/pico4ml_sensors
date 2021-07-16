@@ -27,7 +27,7 @@ int   prediction_suppression_count                                = 0;
 
 // Return the result of the last prediction
 // 0: wing("W"), 1: ring("O"), 2: slope("angle"), 3: unknown
-int PredictGesture(float* output) {
+int PredictGesture(float *output) {
   // Record the latest predictions in our rolling history buffer.
   for (int i = 0; i < kGestureCount; ++i) {
     prediction_history[i][prediction_history_index] = output[i];

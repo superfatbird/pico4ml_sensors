@@ -25,12 +25,12 @@ TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(TestSetup) {
   tflite::MicroErrorReporter micro_error_reporter;
-  TfLiteStatus setup_status = SetupAccelerometer(&micro_error_reporter);
+  TfLiteStatus               setup_status = SetupAccelerometer(&micro_error_reporter);
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, setup_status);
 }
 
 TF_LITE_MICRO_TEST(TestAccelerometer) {
-  float input[384] = {0.0};
+  float                      input[384] = { 0.0 };
   tflite::MicroErrorReporter micro_error_reporter;
   // Test that the function returns false before insufficient data is available
   bool inference_flag = ReadAccelerometer(&micro_error_reporter, input, 384);

@@ -15,8 +15,8 @@ limitations under the License.
 
 #include "feature_provider.h"
 
-#include "tensorflow/lite/c/common.h"
 #include "micro_features/micro_model_settings.h"
+#include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/micro/micro_error_reporter.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
@@ -25,13 +25,13 @@ TF_LITE_MICRO_TESTS_BEGIN
 TF_LITE_MICRO_TEST(TestFeatureProvider) {
   tflite::MicroErrorReporter micro_error_reporter;
 
-  int8_t feature_data[kFeatureElementCount];
+  int8_t          feature_data[kFeatureElementCount];
   FeatureProvider feature_provider(kFeatureElementCount, feature_data);
 
-  int how_many_new_slices = 0;
-  TfLiteStatus populate_status = feature_provider.PopulateFeatureData(
-      &micro_error_reporter, /* last_time_in_ms= */ 0, /* time_in_ms= */ 10000,
-      &how_many_new_slices);
+  int          how_many_new_slices = 0;
+  TfLiteStatus populate_status     = feature_provider.PopulateFeatureData(
+    &micro_error_reporter, /* last_time_in_ms= */ 0, /* time_in_ms= */ 10000,
+    &how_many_new_slices);
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, populate_status);
   TF_LITE_MICRO_EXPECT_EQ(kFeatureSliceCount, how_many_new_slices);
 }

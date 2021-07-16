@@ -13,8 +13,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-#include "main_functions.h"
 #include "LCD_st7735.h"
+#include "main_functions.h"
 #include "pico/stdlib.h"
 
 #include "accelerometer_handler.h"
@@ -41,7 +41,7 @@ int                       input_length;
 // Create a memory area for input, output and intermediate arrays.
 // The size depends on the model you are using and may need to be determined
 // experimentally.
-constexpr int kTensorArenaSize = 60 * 1024;
+constexpr int kTensorArenaSize = 14 * 1024 + 1332;
 uint8_t       tensor_arena[kTensorArenaSize];
 
 }  // namespace
@@ -107,7 +107,7 @@ void setup() {
   }
 
   ST7735_FillScreen(ST7735_GREEN);
-  ST7735_DrawImage(0,0,80,40,(uint8_t*)IMU_ICM20948);
+  ST7735_DrawImage(0, 0, 80, 40, (uint8_t *)IMU_ICM20948);
 
   ST7735_WriteString(5, 45, "Magic", Font_11x18, ST7735_BLACK, ST7735_GREEN);
   ST7735_WriteString(30, 65, "Wand", Font_11x18, ST7735_BLACK, ST7735_GREEN);

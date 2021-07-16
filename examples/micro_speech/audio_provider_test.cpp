@@ -17,8 +17,8 @@ limitations under the License.
 
 #include <limits>
 
-#include "tensorflow/lite/c/common.h"
 #include "micro_features/micro_model_settings.h"
+#include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/micro/micro_error_reporter.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
@@ -27,11 +27,11 @@ TF_LITE_MICRO_TESTS_BEGIN
 TF_LITE_MICRO_TEST(TestAudioProvider) {
   tflite::MicroErrorReporter micro_error_reporter;
 
-  int audio_samples_size = 0;
-  int16_t* audio_samples = nullptr;
+  int          audio_samples_size = 0;
+  int16_t *    audio_samples      = nullptr;
   TfLiteStatus get_status =
-      GetAudioSamples(&micro_error_reporter, 0, kFeatureSliceDurationMs,
-                      &audio_samples_size, &audio_samples);
+    GetAudioSamples(&micro_error_reporter, 0, kFeatureSliceDurationMs,
+                    &audio_samples_size, &audio_samples);
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, get_status);
   TF_LITE_MICRO_EXPECT_LE(audio_samples_size, kMaxAudioSampleSize);
   TF_LITE_MICRO_EXPECT_NE(audio_samples, nullptr);
@@ -54,7 +54,7 @@ TF_LITE_MICRO_TEST(TestTimer) {
   TF_LITE_MICRO_EXPECT_EQ(std::numeric_limits<int32_t>::min(), overflow_value);
 #endif
 
-  const int32_t first_time = LatestAudioTimestamp();
+  const int32_t first_time  = LatestAudioTimestamp();
   const int32_t second_time = LatestAudioTimestamp();
 
   // It's possible that the timer may have wrapped around from +BIG_NUM to

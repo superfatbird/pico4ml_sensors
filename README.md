@@ -28,14 +28,14 @@ Table of Contents
 
 **Tips: If you don't want to compile, you can use the above pre-built uf2 file, you only need to wire the hardware and download uf2 to the device.**  
 
-| Bin                                                         | Description                                                  |
-| ----------------------------------------------------------- | ------------------------------------------------------------ |
-[person_detection_int8.uf2](bin/person_detection_int8.uf2) | This is the main program of person_detection, which can be dragged onto the RP2040 USB Mass Storage Device.
-[person_detection_benchmark.uf2](bin/person_detection_benchmark.uf2) | This is the benchmark program of person_detection, you can use it to test the performance of person_detection on pico.
-| [micro_speech.uf2](bin/micro_speech.uf2) | This is the main program of micro_speech, which can be dragged onto the RP2040 USB Mass Storage Device. |
-| [pico4ml_magic_wand.uf2](bin/pico4ml_magic_wand.uf2) | This is the main program of magic_wand, which can be dragged onto the RP2040 USB Mass Storage Device(Arducam Pico4ML). |
-| [pico4ml_ble_magic_wand.uf2](bin/pico4ml_ble_magic_wand.uf2) | This is the main program of magic_wand, which can be dragged onto the RP2040 USB Mass Storage Device(Arducam Pico4ML-BLE). |
-| [magic_wand_ble.uf2](bin/magic_wand_ble.uf2) | This is the main program of magic_wand_ble, which can be dragged onto the RP2040 USB Mass Storage Device(Arducam Pico4ML-BLE). |
+| Bin                                                          | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [person_detection_int8.uf2](bin/person_detection_int8.uf2)   | This is  an application of person_detection.<br/>Classify Images captured by a camera to recognize if a person is in the camera input or not. |
+| [person_detection_benchmark.uf2](bin/person_detection_benchmark.uf2) | This is the benchmark program of person_detection, you can use it to test the performance of person_detection on pico. |
+| [micro_speech.uf2](bin/micro_speech.uf2)                     | This is  an application of  Wake word detection.<br/>Use a pre-trained speech detection model to provide always-on wake-word detection. |
+| [pico4ml_magic_wand.uf2](bin/pico4ml_magic_wand.uf2)         | This is an application of the magic wand used to recognize gestures through an accelerometer. (Suitable for Arducam Pico4ML ) |
+| [pico4ml_ble_magic_wand.uf2](bin/pico4ml_ble_magic_wand.uf2) | This is an application of the magic wand used to recognize gestures through an accelerometer.(Suitable for  Arducam Pico4ML-BLE). |
+| [magic_wand_ble.uf2](bin/magic_wand_ble.uf2)                 | This is an application of the magic wand used to recognize gestures through an accelerometer. (Suitable for  Arducam Pico4ML-BLE). |
 
 
 
@@ -72,9 +72,14 @@ sudo reboot
 
 ## Person Detection
 - Download pico-tflmicro
+
 ```bash 
-git clone https://github.com/ArduCam/pico-tflmicro.git
+git clone --recursive https://github.com/ArduCam/pico-tflmicro.git 
+# or
+git clone https://github.com/ArduCam/pico-tflmicro.git 
+git submodule update --init --recursive
 ```
+
 - Compile
 ```bash
 cd pico-tflmicro
@@ -155,7 +160,10 @@ The person detection example also outputs the image data and person detection re
 - Download pico-tflmicro
 
 ```bash 
-git clone https://github.com/ArduCAM/pico-tflmicro.git
+git clone --recursive https://github.com/ArduCam/pico-tflmicro.git 
+# or
+git clone https://github.com/ArduCam/pico-tflmicro.git 
+git submodule update --init --recursive
 ```
 
 - Compile
@@ -247,7 +255,10 @@ The micro speech example also outputs the results to the  screen.
 - Download pico-tflmicro
 
 ```bash 
-git clone https://github.com/ArduCAM/pico-tflmicro.git
+git clone --recursive https://github.com/ArduCam/pico-tflmicro.git 
+# or
+git clone https://github.com/ArduCam/pico-tflmicro.git 
+git submodule update --init --recursive
 ```
 
 - Compile
@@ -347,7 +358,10 @@ The magic wand example also outputs the results to the  screen.
 - Download pico-tflmicro
 
 ```bash 
-git clone https://github.com/ArduCAM/pico-tflmicro.git
+git clone --recursive https://github.com/ArduCam/pico-tflmicro.git 
+# or
+git clone https://github.com/ArduCam/pico-tflmicro.git 
+git submodule update --init --recursive
 ```
 
 - Compile

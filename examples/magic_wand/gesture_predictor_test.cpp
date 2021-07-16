@@ -22,8 +22,8 @@ TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(SuccessfulPrediction) {
   // Use the threshold from the 0th gesture.
-  float probabilities[kGestureCount] = {kDetectionThreshold, 0.0, 0.0, 0.0};
-  int prediction;
+  float probabilities[kGestureCount] = { kDetectionThreshold, 0.0, 0.0, 0.0 };
+  int   prediction;
   // Loop just too few times to trigger a prediction.
   for (int i = 0; i < kPredictionHistoryLength - 1; i++) {
     prediction = PredictGesture(probabilities);
@@ -37,8 +37,8 @@ TF_LITE_MICRO_TEST(SuccessfulPrediction) {
 
 TF_LITE_MICRO_TEST(FailPartWayThere) {
   // Use the threshold from the 0th gesture.
-  float probabilities[kGestureCount] = {kDetectionThreshold, 0.0, 0.0, 0.0};
-  int prediction;
+  float probabilities[kGestureCount] = { kDetectionThreshold, 0.0, 0.0, 0.0 };
+  int   prediction;
   // Loop just too few times to trigger a prediction.
   for (int i = 0; i <= kPredictionHistoryLength - 1; i++) {
     prediction = PredictGesture(probabilities);
@@ -47,15 +47,14 @@ TF_LITE_MICRO_TEST(FailPartWayThere) {
   // Call with a different prediction, triggering a failure.
   probabilities[0] = 0.0;
   probabilities[2] = 1.0;
-  prediction = PredictGesture(probabilities);
+  prediction       = PredictGesture(probabilities);
   TF_LITE_MICRO_EXPECT_EQ(prediction, kNoGesture);
 }
 
 TF_LITE_MICRO_TEST(InsufficientProbability) {
   // Just below the detection threshold.
-  float probabilities[kGestureCount] = {kDetectionThreshold - 0.1f, 0.0, 0.0,
-                                        0.0};
-  int prediction;
+  float probabilities[kGestureCount] = { kDetectionThreshold - 0.1f, 0.0, 0.0, 0.0 };
+  int   prediction;
   // Loop the exact right number of times
   for (int i = 0; i <= kPredictionHistoryLength; i++) {
     prediction = PredictGesture(probabilities);

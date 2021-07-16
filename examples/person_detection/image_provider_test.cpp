@@ -17,8 +17,8 @@ limitations under the License.
 
 #include <limits>
 
-#include "tensorflow/lite/c/common.h"
 #include "model_settings.h"
+#include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/micro/micro_error_reporter.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
@@ -27,9 +27,9 @@ TF_LITE_MICRO_TESTS_BEGIN
 TF_LITE_MICRO_TEST(TestImageProvider) {
   tflite::MicroErrorReporter micro_error_reporter;
 
-  int8_t image_data[kMaxImageSize];
-  TfLiteStatus get_status = GetImage(&micro_error_reporter, kNumCols, kNumRows,
-                                     kNumChannels, image_data);
+  int8_t       image_data[kMaxImageSize];
+  TfLiteStatus get_status =
+    GetImage(&micro_error_reporter, kNumCols, kNumRows, kNumChannels, image_data);
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, get_status);
   TF_LITE_MICRO_EXPECT_NE(image_data, nullptr);
 

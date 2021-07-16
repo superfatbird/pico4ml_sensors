@@ -15,13 +15,14 @@ limitations under the License.
 
 #include "image_provider.h"
 #include "model_settings.h"
+#include <cstdio>
 #include <pico/stdio.h>
 
 #include "LCD_st7735.h"
 #include "arducam_hm01b0.h"
 
 struct arducam_config config;
-TfLiteStatus ScreenInit(tflite::ErrorReporter *error_reporter) {
+TfLiteStatus          ScreenInit(tflite::ErrorReporter *error_reporter) {
 #if SCREEN
   ST7735_Init();
   ST7735_DrawImage(0, 0, 80, 160, arducam_logo);
@@ -51,7 +52,7 @@ TfLiteStatus ScreenInit(tflite::ErrorReporter *error_reporter) {
 
 TfLiteStatus GetImage(tflite::ErrorReporter *error_reporter, int image_width,
                       int image_height, int channels, int8_t *image_data) {
-  uint8_t header[2] = {0x55, 0xAA};
+  uint8_t header[2] = { 0x55, 0xAA };
 
 #if EXECUTION_TIME
   TF_LITE_MICRO_EXECUTION_TIME_BEGIN
@@ -68,7 +69,7 @@ TfLiteStatus GetImage(tflite::ErrorReporter *error_reporter, int image_width,
 #if EXECUTION_TIME
   TF_LITE_MICRO_EXECUTION_TIME_SNIPPET_START(error_reporter)
 #endif
-  auto *displayBuf = new uint8_t[96 * 96 * 2];
+  auto *   displayBuf = new uint8_t[96 * 96 * 2];
   uint16_t index      = 0;
   for (int x = 0; x < 96 * 96; x++) {
     uint16_t imageRGB   = ST7735_COLOR565(image_data[x], image_data[x], image_data[x]);
@@ -83,10 +84,9 @@ TfLiteStatus GetImage(tflite::ErrorReporter *error_reporter, int image_width,
 #endif
 
 #ifndef DO_NOT_OUTPUT_TO_UART
-uart_write_blocking(UART_ID, header, 2);
-uart_write_blocking(UART_ID, (uint8_t *)image_data, kMaxImageSize);
+  uart_write_blocking(UART_ID, header, 2);
+  uart_write_blocking(UART_ID, (uint8_t *)image_data, kMaxImageSize);
 #endif
-
   for (int i = 0; i < image_width * image_height * channels; ++i) {
     image_data[i] = (uint8_t)image_data[i] - 128;
   }

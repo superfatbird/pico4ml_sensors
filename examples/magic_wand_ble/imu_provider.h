@@ -53,7 +53,7 @@ enum {
 TfLiteStatus SetupIMU(tflite::ErrorReporter *error_reporter) {
   ICM20948::imuInit(&enMotionSensorType);
   if (IMU_EN_SENSOR_TYPE_ICM20948 != enMotionSensorType) {
-        TF_LITE_REPORT_ERROR(error_reporter, "Failed to initialize IMU");
+    TF_LITE_REPORT_ERROR(error_reporter, "Failed to initialize IMU");
     return kTfLiteError;
   }
 
@@ -61,9 +61,11 @@ TfLiteStatus SetupIMU(tflite::ErrorReporter *error_reporter) {
   // If you see an error on this line, make sure you have at least v1.1.0 of the
   // Arduino_LSM9DS1 library installed.
   //  ICM20948::setContinuousMode();
-  acceleration_sample_rate = 1125 / (1 + 8);  // 119.0f;
-  gyroscope_sample_rate    = 1100 / (1 + 8);  // 119.0f;
-    TF_LITE_REPORT_ERROR(error_reporter, "Magic starts!");
+  acceleration_sample_rate = 1125.0f / (8 + 1); // ICM20948::AccelSampleRate(); 
+  gyroscope_sample_rate    = 1125.0f / (8 + 1); // ICM20948::GyroSampleRate();
+  printf("acceleration_sample_rate:%f\ngyroscope_sample_rate:%f\n",
+         acceleration_sample_rate, gyroscope_sample_rate);
+  TF_LITE_REPORT_ERROR(error_reporter, "Magic starts!");
   return kTfLiteOk;
 }
 
@@ -104,7 +106,7 @@ void ReadAccelerometerAndGyroscope(int *new_accelerometer_samples,
     if (!ICM20948::icm20948GyroRead(&current_gyroscope_data_tmp[0],
                                     &current_gyroscope_data_tmp[1],
                                     &current_gyroscope_data_tmp[2])) {
-            printf("Failed to read gyroscope data");
+      printf("Failed to read gyroscope data");
       break;
     }
     current_gyroscope_data[0] = -current_gyroscope_data_tmp[1];
@@ -120,7 +122,7 @@ void ReadAccelerometerAndGyroscope(int *new_accelerometer_samples,
     if (!ICM20948::icm20948AccelRead(&current_acceleration_data_tmp[0],
                                      &current_acceleration_data_tmp[1],
                                      &current_acceleration_data_tmp[2])) {
-            printf("Failed to read acceleration data");
+      printf("Failed to read acceleration data");
       break;
     }
     current_acceleration_data[0] = -current_acceleration_data_tmp[1];

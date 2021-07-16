@@ -50,9 +50,9 @@ static bool UpdateData() {
   //  x = x*4.0/32768.0;
   //  y = y*4.0/32768.0;
   //  z = z*4.0/32768.0;
-  const float tmp_x       = -y;
-  const float tmp_y       = x;
-  const float tmp_z       = -z;
+  const float tmp_x = -y;
+  const float tmp_y = x;
+  const float tmp_z = -z;
   // Axis adjustment
   const float norm_x       = -tmp_x;
   const float norm_y       = tmp_y;
@@ -61,10 +61,10 @@ static bool UpdateData() {
   save_data[begin_index++] = norm_y * 1000;
   save_data[begin_index++] = norm_z * 1000;
 
-//   printf("norm_x : %.2f , norm_y %.2f , norm_z %.2f \n", norm_x * 1000, norm_y *
-//        1000, norm_z * 1000);
-//   printf("%f\t%f\t%f\n", norm_x*1000, norm_y*1000, norm_z*1000);
-//         time_us_32() - last_sample_millis);
+  //   printf("norm_x : %.2f , norm_y %.2f , norm_z %.2f \n", norm_x * 1000, norm_y *
+  //        1000, norm_z * 1000);
+  //   printf("%f\t%f\t%f\n", norm_x*1000, norm_y*1000, norm_z*1000);
+  //         time_us_32() - last_sample_millis);
 
   if (begin_index >= 600) {
     begin_index = 0;

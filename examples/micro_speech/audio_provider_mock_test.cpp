@@ -15,24 +15,24 @@ limitations under the License.
 
 #include <limits>
 
-#include "tensorflow/lite/c/common.h"
 #include "audio_provider.h"
 #include "micro_features/micro_model_settings.h"
 #include "no_1000ms_sample_data.h"
-#include "yes_1000ms_sample_data.h"
+#include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/micro/micro_error_reporter.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
+#include "yes_1000ms_sample_data.h"
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(TestAudioProviderMock) {
   tflite::MicroErrorReporter micro_error_reporter;
 
-  int audio_samples_size = 0;
-  int16_t* audio_samples = nullptr;
+  int          audio_samples_size = 0;
+  int16_t *    audio_samples      = nullptr;
   TfLiteStatus get_status =
-      GetAudioSamples(&micro_error_reporter, 0, kFeatureSliceDurationMs,
-                      &audio_samples_size, &audio_samples);
+    GetAudioSamples(&micro_error_reporter, 0, kFeatureSliceDurationMs,
+                    &audio_samples_size, &audio_samples);
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, get_status);
   TF_LITE_MICRO_EXPECT_LE(audio_samples_size, kMaxAudioSampleSize);
   TF_LITE_MICRO_EXPECT_NE(audio_samples, nullptr);
@@ -40,20 +40,17 @@ TF_LITE_MICRO_TEST(TestAudioProviderMock) {
     TF_LITE_MICRO_EXPECT_EQ(g_yes_1000ms_sample_data[i], audio_samples[i]);
   }
 
-  get_status =
-      GetAudioSamples(&micro_error_reporter, 500, kFeatureSliceDurationMs,
-                      &audio_samples_size, &audio_samples);
+  get_status = GetAudioSamples(&micro_error_reporter, 500, kFeatureSliceDurationMs,
+                               &audio_samples_size, &audio_samples);
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, get_status);
   TF_LITE_MICRO_EXPECT_LE(audio_samples_size, kMaxAudioSampleSize);
   TF_LITE_MICRO_EXPECT_NE(audio_samples, nullptr);
   for (int i = 0; i < audio_samples_size; ++i) {
-    TF_LITE_MICRO_EXPECT_EQ(g_yes_1000ms_sample_data[i + 8000],
-                            audio_samples[i]);
+    TF_LITE_MICRO_EXPECT_EQ(g_yes_1000ms_sample_data[i + 8000], audio_samples[i]);
   }
 
-  get_status =
-      GetAudioSamples(&micro_error_reporter, 1500, kFeatureSliceDurationMs,
-                      &audio_samples_size, &audio_samples);
+  get_status = GetAudioSamples(&micro_error_reporter, 1500, kFeatureSliceDurationMs,
+                               &audio_samples_size, &audio_samples);
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, get_status);
   TF_LITE_MICRO_EXPECT_LE(audio_samples_size, kMaxAudioSampleSize);
   TF_LITE_MICRO_EXPECT_NE(audio_samples, nullptr);
@@ -61,15 +58,13 @@ TF_LITE_MICRO_TEST(TestAudioProviderMock) {
     TF_LITE_MICRO_EXPECT_EQ(0, audio_samples[i]);
   }
 
-  get_status =
-      GetAudioSamples(&micro_error_reporter, 12250, kFeatureSliceDurationMs,
-                      &audio_samples_size, &audio_samples);
+  get_status = GetAudioSamples(&micro_error_reporter, 12250, kFeatureSliceDurationMs,
+                               &audio_samples_size, &audio_samples);
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, get_status);
   TF_LITE_MICRO_EXPECT_LE(audio_samples_size, kMaxAudioSampleSize);
   TF_LITE_MICRO_EXPECT_NE(audio_samples, nullptr);
   for (int i = 0; i < audio_samples_size; ++i) {
-    TF_LITE_MICRO_EXPECT_EQ(g_no_1000ms_sample_data[i + 4000],
-                            audio_samples[i]);
+    TF_LITE_MICRO_EXPECT_EQ(g_no_1000ms_sample_data[i + 4000], audio_samples[i]);
   }
 }
 

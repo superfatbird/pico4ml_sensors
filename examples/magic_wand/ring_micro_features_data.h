@@ -16,8 +16,8 @@ limitations under the License.
 #ifndef TENSORFLOW_LITE_MICRO_EXAMPLES_MAGIC_WAND_RING_MICRO_FEATURES_DATA_H_
 #define TENSORFLOW_LITE_MICRO_EXAMPLES_MAGIC_WAND_RING_MICRO_FEATURES_DATA_H_
 
-extern const int g_ring_micro_f9643d42_nohash_4_length;
-extern const int g_ring_micro_f9643d42_nohash_4_dim;
+extern const int   g_ring_micro_f9643d42_nohash_4_length;
+extern const int   g_ring_micro_f9643d42_nohash_4_dim;
 extern const float g_ring_micro_f9643d42_nohash_4_data[];
 
 #endif  // TENSORFLOW_LITE_MICRO_EXAMPLES_MAGIC_WAND_RING_MICRO_FEATURES_DATA_H_

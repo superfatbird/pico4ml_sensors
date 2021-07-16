@@ -13,11 +13,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-#include "tensorflow/lite/c/common.h"
 #include "model_settings.h"
 #include "no_person_image_data.h"
 #include "person_detect_model_data.h"
 #include "person_image_data.h"
+#include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/micro/micro_error_reporter.h"
 #include "tensorflow/lite/micro/micro_interpreter.h"
 #include "tensorflow/lite/micro/micro_mutable_op_resolver.h"
@@ -27,7 +27,7 @@ limitations under the License.
 
 // Create an area of memory to use for input, output, and intermediate arrays.
 constexpr int tensor_arena_size = 136 * 1024;
-uint8_t tensor_arena[tensor_arena_size];
+uint8_t       tensor_arena[tensor_arena_size];
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -37,7 +37,7 @@ TF_LITE_MICRO_TEST(TestInvoke) {
 
   // Map the model into a usable data structure. This doesn't involve any
   // copying or parsing, it's a very lightweight operation.
-  const tflite::Model* model = ::tflite::GetModel(g_person_detect_model_data);
+  const tflite::Model *model = ::tflite::GetModel(g_person_detect_model_data);
   if (model->version() != TFLITE_SCHEMA_VERSION) {
     TF_LITE_REPORT_ERROR(&micro_error_reporter,
                          "Model provided is schema version %d not equal "
@@ -59,12 +59,11 @@ TF_LITE_MICRO_TEST(TestInvoke) {
 
   // Build an interpreter to run the model with.
   tflite::MicroInterpreter interpreter(model, micro_op_resolver, tensor_arena,
-                                       tensor_arena_size,
-                                       &micro_error_reporter);
+                                       tensor_arena_size, &micro_error_reporter);
   interpreter.AllocateTensors();
 
   // Get information about the memory area to use for the model's input.
-  TfLiteTensor* input = interpreter.input(0);
+  TfLiteTensor *input = interpreter.input(0);
 
   // Make sure the input has the properties we expect.
   TF_LITE_MICRO_EXPECT_NE(nullptr, input);
@@ -88,14 +87,14 @@ TF_LITE_MICRO_TEST(TestInvoke) {
 
   // Get the output from the model, and make sure it's the expected size and
   // type.
-  TfLiteTensor* output = interpreter.output(0);
+  TfLiteTensor *output = interpreter.output(0);
   TF_LITE_MICRO_EXPECT_EQ(2, output->dims->size);
   TF_LITE_MICRO_EXPECT_EQ(1, output->dims->data[0]);
   TF_LITE_MICRO_EXPECT_EQ(kCategoryCount, output->dims->data[1]);
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteInt8, output->type);
 
   // Make sure that the expected "Person" score is higher than the other class.
-  int8_t person_score = output->data.int8[kPersonIndex];
+  int8_t person_score    = output->data.int8[kPersonIndex];
   int8_t no_person_score = output->data.int8[kNotAPersonIndex];
   TF_LITE_REPORT_ERROR(&micro_error_reporter,
                        "person data.  person score: %d, no person score: %d\n",
@@ -121,12 +120,11 @@ TF_LITE_MICRO_TEST(TestInvoke) {
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteInt8, output->type);
 
   // Make sure that the expected "No Person" score is higher.
-  person_score = output->data.int8[kPersonIndex];
+  person_score    = output->data.int8[kPersonIndex];
   no_person_score = output->data.int8[kNotAPersonIndex];
-  TF_LITE_REPORT_ERROR(
-      &micro_error_reporter,
-      "no person data.  person score: %d, no person score: %d\n", person_score,
-      no_person_score);
+  TF_LITE_REPORT_ERROR(&micro_error_reporter,
+                       "no person data.  person score: %d, no person score: %d\n",
+                       person_score, no_person_score);
   TF_LITE_MICRO_EXPECT_GT(no_person_score, person_score);
 
   TF_LITE_REPORT_ERROR(&micro_error_reporter, "Ran successfully\n");

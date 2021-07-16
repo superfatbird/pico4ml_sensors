@@ -56,7 +56,8 @@ TF_LITE_MICRO_TEST(LoadModelAndPerformInference) {
 
   // 仅引入我们需要的操作实现。
   // 这取决于此图所需的所有操作的完整列表。
-  // 一种更简单的方法是仅使用 AllOpsResolver，但这将导致此图不需要的op实现的代码空间有所损失。
+  // 一种更简单的方法是仅使用
+  // AllOpsResolver，但这将导致此图不需要的op实现的代码空间有所损失。
   static tflite::MicroMutableOpResolver<5> micro_op_resolver;  // NOLINT
   micro_op_resolver.AddConv2D();
   micro_op_resolver.AddDepthwiseConv2D();
