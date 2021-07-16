@@ -61,8 +61,8 @@ TfLiteStatus SetupIMU(tflite::ErrorReporter *error_reporter) {
   // If you see an error on this line, make sure you have at least v1.1.0 of the
   // Arduino_LSM9DS1 library installed.
   //  ICM20948::setContinuousMode();
-  acceleration_sample_rate = ICM20948::AccelSampleRate();  // 119.0f;
-  gyroscope_sample_rate    = ICM20948::GyroSampleRate();   // 119.0f;
+  acceleration_sample_rate = 1125.0f / (8 + 1); // ICM20948::AccelSampleRate(); 
+  gyroscope_sample_rate    = 1125.0f / (8 + 1); // ICM20948::GyroSampleRate();
   printf("acceleration_sample_rate:%f\ngyroscope_sample_rate:%f\n",
          acceleration_sample_rate, gyroscope_sample_rate);
   TF_LITE_REPORT_ERROR(error_reporter, "Magic starts!");
