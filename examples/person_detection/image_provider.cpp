@@ -22,7 +22,8 @@ limitations under the License.
 #include "arducam_hm01b0.h"
 
 struct arducam_config config;
-TfLiteStatus          ScreenInit(tflite::ErrorReporter *error_reporter) {
+
+TfLiteStatus ScreenInit(tflite::ErrorReporter *error_reporter) {
 #if SCREEN
   ST7735_Init();
   ST7735_DrawImage(0, 0, 80, 160, arducam_logo);
@@ -69,7 +70,7 @@ TfLiteStatus GetImage(tflite::ErrorReporter *error_reporter, int image_width,
 #if EXECUTION_TIME
   TF_LITE_MICRO_EXECUTION_TIME_SNIPPET_START(error_reporter)
 #endif
-  auto *   displayBuf = new uint8_t[96 * 96 * 2];
+  auto    *displayBuf = new uint8_t[96 * 96 * 2];
   uint16_t index      = 0;
   for (int x = 0; x < 96 * 96; x++) {
     uint16_t imageRGB   = ST7735_COLOR565(image_data[x], image_data[x], image_data[x]);

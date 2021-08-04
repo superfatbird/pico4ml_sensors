@@ -34,6 +34,7 @@ target_link_libraries(
   pico-tflmicro
   hardware_pwm
   #  pico-tflmicro_test
+  ICM42622
   ICM20948
   LCD_st7735
 )
@@ -68,6 +69,7 @@ target_link_libraries(
   pico-tflmicro
   hardware_pwm
   #  pico-tflmicro_test
+  ICM42622
   ICM20948
   LCD_st7735
 )
@@ -111,6 +113,7 @@ target_link_libraries(
   pico-tflmicro
   hardware_pwm
   pico_stdlib
+  ICM42622
   ICM20948
   LCD_st7735
 )
@@ -158,6 +161,7 @@ target_link_libraries(
   pico-tflmicro
   hardware_pwm
   pico_stdlib
+  ICM42622
   ICM20948
   LCD_st7735
 )
@@ -201,6 +205,7 @@ target_link_libraries(
   hardware_pwm
   #  pico-tflmicro_test
   pico_stdlib
+  ICM42622
   ICM20948
   LCD_st7735
 )
@@ -239,6 +244,7 @@ target_link_libraries(
   pico-tflmicro
   hardware_pwm
   #  pico-tflmicro_test
+  ICM42622
   ICM20948
   LCD_st7735
 )

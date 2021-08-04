@@ -31,9 +31,9 @@ RecognizeCommands::RecognizeCommands(tflite::ErrorReporter *error_reporter,
 
 TfLiteStatus RecognizeCommands::ProcessLatestResults(const TfLiteTensor *latest_results,
                                                      const int32_t current_time_ms,
-                                                     const char ** found_command,
-                                                     uint8_t *     score,
-                                                     bool *        is_new_command) {
+                                                     const char  **found_command,
+                                                     uint8_t      *score,
+                                                     bool         *is_new_command) {
   if ((latest_results->dims->size != 2) || (latest_results->dims->data[0] != 1)
       || (latest_results->dims->data[1] != kCategoryCount)) {
     TF_LITE_REPORT_ERROR(
@@ -87,7 +87,7 @@ TfLiteStatus RecognizeCommands::ProcessLatestResults(const TfLiteTensor *latest_
   int32_t average_scores[kCategoryCount];
   for (int offset = 0; offset < previous_results_.size(); ++offset) {
     PreviousResultsQueue::Result previous_result = previous_results_.from_front(offset);
-    const int8_t *               scores          = previous_result.scores;
+    const int8_t                *scores          = previous_result.scores;
     for (int i = 0; i < kCategoryCount; ++i) {
       if (offset == 0) {
         average_scores[i] = scores[i] + 128;

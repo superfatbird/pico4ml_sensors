@@ -40,10 +40,10 @@ const uint LED_PIN = 25;
 #define UART_RX_PIN 1
 // Globals, used for compatibility with Arduino-style sketches.
 namespace {
-tflite::ErrorReporter *   error_reporter = nullptr;
-const tflite::Model *     model          = nullptr;
+tflite::ErrorReporter    *error_reporter = nullptr;
+const tflite::Model      *model          = nullptr;
 tflite::MicroInterpreter *interpreter    = nullptr;
-TfLiteTensor *            input          = nullptr;
+TfLiteTensor             *input          = nullptr;
 
 // In order to use optimized tensorflow lite kernels, a signed int8_t quantized
 // model is preferred over the legacy unsigned model format. This means that
@@ -53,11 +53,12 @@ TfLiteTensor *            input          = nullptr;
 // signed value.
 
 // An area of memory to use for input, output, and intermediate arrays.
-constexpr int  kTensorArenaSize = 54 * 1024+27*1024;
+constexpr int  kTensorArenaSize = 54 * 1024 + 27 * 1024;
 static uint8_t tensor_arena[kTensorArenaSize];
 }  // namespace
 
 #ifndef DO_NOT_OUTPUT_TO_UART
+
 // RX interrupt handler
 void on_uart_rx() {
   char cameraCommand = 0;
@@ -93,6 +94,7 @@ void setup_uart() {
   // Now enable the UART to send interrupts - RX only
   uart_set_irq_enables(UART_ID, true, false);
 }
+
 #else
 void setup_uart() {}
 #endif

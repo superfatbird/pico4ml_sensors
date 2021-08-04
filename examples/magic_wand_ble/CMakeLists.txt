@@ -40,6 +40,7 @@ target_link_libraries(
   pico-tflmicro
   hardware_pwm
   pico_stdlib
+  ICM42622
   ICM20948
   LCD_st7735
 )

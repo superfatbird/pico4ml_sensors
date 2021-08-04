@@ -18,6 +18,7 @@ limitations under the License.
 #include "constants.h"
 
 #include "stdio.h"
+
 namespace {
 // State for the averaging algorithm we're using.
 float prediction_history[kGestureCount][kPredictionHistoryLength] = {};
@@ -59,26 +60,26 @@ int PredictGesture(float *output) {
     --prediction_suppression_count;
   }
 #if 0
-//#include "st7735.h"
-  if (max_predict_index != 3) {
+    //#include "st7735.h"
+      if (max_predict_index != 3) {
 
-    if (max_predict_index == 0) {
-      ST7735_WriteString(5, 90, "Wing", Font_11x18, ST7735_BLACK, ST7735_GREEN);
-    }
-    else if (max_predict_index == 1) {
-      ST7735_WriteString(5, 90, "Ring", Font_11x18, ST7735_BLACK, ST7735_GREEN);
-    }
-    else if (max_predict_index == 2) {
-      ST7735_WriteString(5, 90, "Slope", Font_11x18, ST7735_BLACK, ST7735_GREEN);
-    }
+        if (max_predict_index == 0) {
+          ST7735_WriteString(5, 90, "Wing", Font_11x18, ST7735_BLACK, ST7735_GREEN);
+        }
+        else if (max_predict_index == 1) {
+          ST7735_WriteString(5, 90, "Ring", Font_11x18, ST7735_BLACK, ST7735_GREEN);
+        }
+        else if (max_predict_index == 2) {
+          ST7735_WriteString(5, 90, "Slope", Font_11x18, ST7735_BLACK, ST7735_GREEN);
+        }
 
-    char array[10];
-    sprintf(array, "%.1f%%", max_predict_score*100);
-    ST7735_WriteString(5, 110, array, Font_11x18, ST7735_BLACK, ST7735_GREEN);
+        char array[10];
+        sprintf(array, "%.1f%%", max_predict_score*100);
+        ST7735_WriteString(5, 110, array, Font_11x18, ST7735_BLACK, ST7735_GREEN);
 
-    //  ST7735_FillScreen(ST7735_GREEN);
-    printf("%d : %f \n", max_predict_index, max_predict_score);
-  }
+        //  ST7735_FillScreen(ST7735_GREEN);
+        printf("%d : %f \n", max_predict_index, max_predict_score);
+      }
 #endif
 
   // If we're predicting no gesture, or the average score is too low, or there's

@@ -68,8 +68,10 @@ limitations under the License.
                        duration_ms);
 #endif
 
-extern int          begin_index;
+extern int begin_index;
+
 extern TfLiteStatus SetupAccelerometer(tflite::ErrorReporter *error_reporter);
+
 extern bool ReadAccelerometer(tflite::ErrorReporter *error_reporter, float *input,
                               int length);
 

@@ -27,7 +27,9 @@ limitations under the License.
 #define SCREEN 1
 
 #if SCREEN
+
 #include "LCD_st7735.h"
+
 #endif
 
 #define UART_ID uart0
@@ -55,8 +57,8 @@ int8_t        raster_buffer[raster_byte_count];
 constexpr int kTensorArenaSize = 7 * 1024 + 1888;
 uint8_t       tensor_arena[kTensorArenaSize];
 
-tflite::ErrorReporter *   error_reporter = nullptr;
-const tflite::Model *     model          = nullptr;
+tflite::ErrorReporter    *error_reporter = nullptr;
+const tflite::Model      *model          = nullptr;
 tflite::MicroInterpreter *interpreter    = nullptr;
 
 // -------------------------------------------------------------------------------- //
@@ -125,6 +127,7 @@ void setup_uart() {
   // Now enable the UART to send interrupts - RX only
   uart_set_irq_enables(UART_ID, true, false);
 }
+
 #else
 void setup_uart() {}
 #endif
@@ -248,7 +251,7 @@ void loop() {
     // Rasterize the gesture
     RasterizeStroke(stroke_points, *stroke_transmit_length, 0.6f, 0.6f, raster_width,
                     raster_height, raster_buffer);
-    auto *   displayBuf = new uint8_t[96 * 96 * 2];
+    auto    *displayBuf = new uint8_t[96 * 96 * 2];
     uint16_t index      = 0;
     for (int y = 0; y < raster_height; ++y) {
       char line[raster_width + 1];

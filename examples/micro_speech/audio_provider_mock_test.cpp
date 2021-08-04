@@ -29,7 +29,7 @@ TF_LITE_MICRO_TEST(TestAudioProviderMock) {
   tflite::MicroErrorReporter micro_error_reporter;
 
   int          audio_samples_size = 0;
-  int16_t *    audio_samples      = nullptr;
+  int16_t     *audio_samples      = nullptr;
   TfLiteStatus get_status =
     GetAudioSamples(&micro_error_reporter, 0, kFeatureSliceDurationMs,
                     &audio_samples_size, &audio_samples);
