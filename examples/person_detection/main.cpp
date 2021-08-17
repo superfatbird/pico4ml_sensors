@@ -15,6 +15,7 @@ limitations under the License.
 
 #include "main_functions.h"
 #include "pico/stdio.h"
+
 // This is the default main used on systems that have the standard C entry
 // point. Other devices (for example FreeRTOS or ESP32) that have different
 // requirements for entry code (like an app_main function) should specialize

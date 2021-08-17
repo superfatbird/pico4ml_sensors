@@ -31,21 +31,21 @@ limitations under the License.
 
 // Global variables, used to be compatible with Arduino style sketches.
 namespace {
-tflite::ErrorReporter *   error_reporter   = nullptr;
-const tflite::Model *     model            = nullptr;
+tflite::ErrorReporter    *error_reporter   = nullptr;
+const tflite::Model      *model            = nullptr;
 tflite::MicroInterpreter *interpreter      = nullptr;
-TfLiteTensor *            model_input      = nullptr;
-FeatureProvider *         feature_provider = nullptr;
-RecognizeCommands *       recognizer       = nullptr;
+TfLiteTensor             *model_input      = nullptr;
+FeatureProvider          *feature_provider = nullptr;
+RecognizeCommands        *recognizer       = nullptr;
 int32_t                   previous_time    = 0;
 
 // Create a memory area for input, output and intermediate arrays.
 // The size of this will depend on the model you're using,
 // and may need to be determined by experimentation.
-constexpr int kTensorArenaSize = 6 * 1024+1360;
+constexpr int kTensorArenaSize = 6 * 1024 + 1360;
 uint8_t       tensor_arena[kTensorArenaSize];
 int8_t        feature_buffer[kFeatureElementCount];
-int8_t *      model_input_buffer = nullptr;
+int8_t       *model_input_buffer = nullptr;
 }  // namespace
 
 // The name of this function is important for Arduino compatibility.
@@ -185,7 +185,7 @@ void loop() {
   // Obtain a pointer to the output tensor
   TfLiteTensor *output = interpreter->output(0);
   // Determine whether a command was recognized based on the output of inference
-  const char * found_command  = nullptr;
+  const char  *found_command  = nullptr;
   uint8_t      score          = 0;
   bool         is_new_command = false;
   TfLiteStatus process_status = recognizer->ProcessLatestResults(

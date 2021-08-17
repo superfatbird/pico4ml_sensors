@@ -32,10 +32,10 @@ const uint LED_PIN = 25;
 
 // Global variables, used to be compatible with Arduino style sketches.
 namespace {
-tflite::ErrorReporter *   error_reporter = nullptr;
-const tflite::Model *     model          = nullptr;
+tflite::ErrorReporter    *error_reporter = nullptr;
+const tflite::Model      *model          = nullptr;
 tflite::MicroInterpreter *interpreter    = nullptr;
-TfLiteTensor *            model_input    = nullptr;
+TfLiteTensor             *model_input    = nullptr;
 int                       input_length;
 
 // Create a memory area for input, output and intermediate arrays.
@@ -151,25 +151,25 @@ void loop() {
   HandleOutput(error_reporter, gesture_index);
 
 #if 0
-  char   s[64];
-  float *f = model_input->data.f;
-  float *p = interpreter->output(0)->data.f;
-  sprintf(s, "%+6.0f : %+6.0f : %+6.0f || W %3.2f : R %3.2f : S %3.2f", f[381], f[382],
-          f[383], p[0], p[1], p[2]);
-  TF_LITE_REPORT_ERROR(error_reporter, s);
+    char   s[64];
+    float *f = model_input->data.f;
+    float *p = interpreter->output(0)->data.f;
+    sprintf(s, "%+6.0f : %+6.0f : %+6.0f || W %3.2f : R %3.2f : S %3.2f", f[381], f[382],
+            f[383], p[0], p[1], p[2]);
+    TF_LITE_REPORT_ERROR(error_reporter, s);
 
-//  for (int i = 0; i < 3; i++) {
-//    printf("%d : ", i);
-//    int barNum = static_cast<int>(roundf(p[i] * 10));
-//    for (int k = 0; k < barNum; k++) {
-//      printf("\u2588"); // "█"
-//    }
-//    for (int k = barNum - 1; k < 10; k++) {
-//      printf(" ");
-//    }
-//    printf(" ");
-//  }
-//  printf("\n");
+  //  for (int i = 0; i < 3; i++) {
+  //    printf("%d : ", i);
+  //    int barNum = static_cast<int>(roundf(p[i] * 10));
+  //    for (int k = 0; k < barNum; k++) {
+  //      printf("\u2588"); // "█"
+  //    }
+  //    for (int k = barNum - 1; k < 10; k++) {
+  //      printf(" ");
+  //    }
+  //    printf(" ");
+  //  }
+  //  printf("\n");
 #endif
   gpio_put(LED_PIN, 0);
 }

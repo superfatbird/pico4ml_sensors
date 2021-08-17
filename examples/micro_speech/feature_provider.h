@@ -33,6 +33,7 @@ class FeatureProvider {
   // calls will fill it with feature data. The provider does no memory
   // management of this data.
   FeatureProvider(int feature_size, int8_t *feature_data);
+
   ~FeatureProvider();
 
   // Fills the feature data with information from audio inputs, and returns how

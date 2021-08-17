@@ -37,11 +37,13 @@ class PreviousResultsQueue {
   // was recorded.
   struct Result {
     Result() : time_(0), scores() {}
+
     Result(int32_t time, int8_t *input_scores) : time_(time) {
       for (int i = 0; i < kCategoryCount; ++i) {
         scores[i] = input_scores[i];
       }
     }
+
     int32_t time_;
     int8_t  scores[kCategoryCount];
   };
@@ -49,12 +51,15 @@ class PreviousResultsQueue {
   int size() {
     return size_;
   }
+
   bool empty() {
     return size_ == 0;
   }
+
   Result &front() {
     return results_[front_index_];
   }
+
   Result &back() {
     int back_index = front_index_ + (size_ - 1);
     if (back_index >= kMaxResults) {
@@ -155,7 +160,7 @@ class RecognizeCommands {
 
   // Working variables
   PreviousResultsQueue previous_results_;
-  const char *         previous_top_label_;
+  const char          *previous_top_label_;
   int32_t              previous_top_label_time_;
 };
 

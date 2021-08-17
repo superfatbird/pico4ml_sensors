@@ -14,9 +14,11 @@ limitations under the License.
 ==============================================================================*/
 
 #include "ICM20948.h"
+#include "ICM42622.h"
 #include "accelerometer_handler.h"
-#include <cstdio>
+#include <hardware/gpio.h>
 #include <pico/stdio.h>
+#include <stdio.h>
 
 // Buffer, save the last 200 groups of 3 channel values
 float save_data[600] = { 0.0 };
@@ -25,15 +27,40 @@ float save_data[600] = { 0.0 };
 int begin_index = 0;
 // If there is not enough data to make inferences, then True
 auto pending_initial_data = true;
+uint8_t DeviceWho=0;
+uint8_t count_h=0,count_l=0;
+uint16_t AccelLenght=0;
+uint8_t AccelBuffer[2048]={0};
+int16_t Accel_X=0,Accel_Y=0,Accel_Z=0;
+int sample_skip_counter = 1;
 
 IMU_EN_SENSOR_TYPE enMotionSensorType;
 
 TfLiteStatus SetupAccelerometer(tflite::ErrorReporter *error_reporter) {
+  uint8_t flag = 0;
   stdio_init_all();
-  ICM20948::imuInit(&enMotionSensorType);
-  if (IMU_EN_SENSOR_TYPE_ICM20948 != enMotionSensorType) {
-    TF_LITE_REPORT_ERROR(error_reporter, "Failed to initialize IMU");
-    return kTfLiteError;
+  i2c_init(I2C_PORT, 400 * 1000);
+  gpio_set_function(4, GPIO_FUNC_I2C);
+  gpio_set_function(5, GPIO_FUNC_I2C);
+  gpio_pull_up(4);
+  gpio_pull_up(5);
+  sleep_ms(1000);
+  uint8_t DeviceID = ICM42622::Icm42622CheckID();
+  if (DeviceID == ICM42622_DEVICE_ID) {
+    DeviceWho = ICM42622_DEVICE;
+    flag      = ICM42622::Icm42622Init();
+    if (flag == 0) {
+      TF_LITE_REPORT_ERROR(error_reporter, "Failed to initialize IMU");
+      return kTfLiteError;
+    }
+  }
+  else {
+    DeviceWho = ICM20948_DEVICE;
+    ICM20948::imuInit(&enMotionSensorType);
+    if (IMU_EN_SENSOR_TYPE_ICM20948 != enMotionSensorType) {
+      TF_LITE_REPORT_ERROR(error_reporter, "Failed to initialize IMU");
+      return kTfLiteError;
+    }
   }
 
   TF_LITE_REPORT_ERROR(error_reporter, "Magic starts!");
@@ -59,15 +86,9 @@ static bool UpdateData() {
   save_data[begin_index++] = norm_y * 1000;
   save_data[begin_index++] = norm_z * 1000;
 
-  printf("x : %.2f , y %.2f , z %.2f \n", -norm_y * 1000, norm_x * 1000, norm_z * 1000);
-  //   printf("%f\t%f\t%f\n", norm_x*1000, norm_y*1000, norm_z*1000);
-  //         time_us_32() - last_sample_millis);
-
   if (begin_index >= 600) {
     begin_index = 0;
   }
-
-  //  new_data = true;
 
   return true;
 }
@@ -75,9 +96,44 @@ static bool UpdateData() {
 bool ReadAccelerometer(tflite::ErrorReporter *error_reporter, float *input,
                        int length) {
   bool new_data = false;
-
-  while (ICM20948::dataReady()) {
-    new_data = UpdateData();
+  if (DeviceWho == ICM42622_DEVICE) {
+    float x = 0.0f, y = 0.0f, z = 0.0f;
+    count_h     = ICM42622::I2cReadOneByte(ICM42622_FIFO_COUNTH);
+    count_l     = ICM42622::I2cReadOneByte(ICM42622_FIFO_COUNTL);
+    AccelLenght = count_h << 8 | count_l;
+    if (AccelLenght > 0) {
+      ICM42622::Icm42622DataReady();
+      ICM42622::Icm42622ReadFifo(AccelBuffer, AccelLenght);
+      for (uint16_t value = 0; value < AccelLenght / 8; value++) {
+        Accel_X = (AccelBuffer[value * 8 + 1] << 8) | AccelBuffer[value * 8 + 2];
+        Accel_Y = (AccelBuffer[value * 8 + 3] << 8) | AccelBuffer[value * 8 + 4];
+        Accel_Z = (AccelBuffer[value * 8 + 5] << 8) | AccelBuffer[value * 8 + 6];
+        if (sample_skip_counter != 4) {
+          sample_skip_counter += 1;
+          continue;
+        }
+        const float tmp_x = Accel_Y*ACCELL_Y_DIRECTION;
+        const float tmp_y = Accel_X*ACCELL_X_DIRECTION;
+        const float tmp_z = Accel_Z*ACCELL_Z_DIRECTION;
+        // Axis adjustment
+        const float norm_x       = -tmp_x;
+        const float norm_y       = tmp_y;
+        const float norm_z       = tmp_z;
+        save_data[begin_index++] = norm_x * 1000;
+        save_data[begin_index++] = norm_y * 1000;
+        save_data[begin_index++] = norm_z * 1000;
+        sample_skip_counter      = 1;
+        if (begin_index >= 600) {
+          begin_index = 0;
+        }
+        new_data = true;
+      }
+    }
+  }
+  else {
+    while (ICM20948::dataReady()) {
+      new_data = UpdateData();
+    }
   }
   if (!new_data) {
     return false;

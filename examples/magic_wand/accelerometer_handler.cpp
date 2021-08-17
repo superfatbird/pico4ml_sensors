@@ -15,6 +15,8 @@ limitations under the License.
 
 #include "accelerometer_handler.h"
 #include "ICM20948.h"
+#include <ICM42622.h>
+#include <hardware/gpio.h>
 #include <pico/stdio.h>
 
 // Buffer, save the last 200 groups of 3 channel values
@@ -29,6 +31,12 @@ IMU_EN_SENSOR_TYPE enMotionSensorType;
 
 TfLiteStatus SetupAccelerometer(tflite::ErrorReporter *error_reporter) {
   stdio_init_all();
+  i2c_init(I2C_PORT, 400 * 1000);
+  gpio_set_function(4, GPIO_FUNC_I2C);
+  gpio_set_function(5, GPIO_FUNC_I2C);
+  gpio_pull_up(4);
+  gpio_pull_up(5);
+  sleep_ms(1000);
   ICM20948::imuInit(&enMotionSensorType);
   if (IMU_EN_SENSOR_TYPE_ICM20948 != enMotionSensorType) {
     TF_LITE_REPORT_ERROR(error_reporter, "Failed to initialize IMU");

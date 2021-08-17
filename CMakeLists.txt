@@ -380,116 +380,26 @@ target_sources(pico-tflmicro_test
   ${CMAKE_CURRENT_LIST_DIR}/src/tensorflow/lite/micro/testing/test_conv_model.h
 )
 
-#add_library(arducam_lib "")
-#
-#target_include_directories(arducam_lib
-#  PUBLIC
-#  ${CMAKE_CURRENT_LIST_DIR}/include/
-#  ${CMAKE_CURRENT_LIST_DIR}/include/arducam/
-#  ${CMAKE_CURRENT_LIST_DIR}/include/arducam_mic/
-#  ${CMAKE_CURRENT_LIST_DIR}/include/Config/
-#  ${CMAKE_CURRENT_LIST_DIR}/include/ICM20948/
-#  ${CMAKE_CURRENT_LIST_DIR}/include/LCD/
-#  )
-#
-#target_compile_definitions(
-#  arducam_lib
-#  PUBLIC
-#)
-#
-#set_target_properties(
-#  arducam_lib
-#  PROPERTIES
-#  COMPILE_FLAGS -fno-rtti
-#  COMPILE_FLAGS -fno-exceptions
-#  COMPILE_FLAGS -fno-threadsafe-statics
-#  COMPILE_FLAGS -nostdlib
-#)
-#
-#target_link_libraries(
-#  arducam_lib
-#  pico_stdlib
-#)
-#
-#target_sources(arducam_lib
-#  PUBLIC
-#  ${CMAKE_CURRENT_LIST_DIR}/src/tensorflow/lite/micro/benchmarks/keyword_scrambled_model_data.cpp
-#  ${CMAKE_CURRENT_LIST_DIR}/src/tensorflow/lite/micro/testing/test_conv_model.cpp
-#  ${CMAKE_CURRENT_LIST_DIR}/src/tensorflow/lite/micro/testing/util_test.cpp
-#  ${CMAKE_CURRENT_LIST_DIR}/src/tensorflow/lite/micro/testing/micro_test.h
-#  ${CMAKE_CURRENT_LIST_DIR}/src/tensorflow/lite/micro/testing/test_conv_model.h
-#  )
+
 
 add_subdirectory(include/arducam_hm01b0)
-add_subdirectory(include/arducam_mic)
 add_subdirectory(include/LCD_st7735)
+add_subdirectory(include/ICM42622)
+add_subdirectory(include/pico-microphone)
 add_subdirectory(include/ICM20948)
+add_subdirectory(include/arducam_mic)
+
 
 include_directories(include/arducam_hm01b0)
-include_directories(include/arducam_mic)
 include_directories(include/LCD_st7735)
+include_directories(include/ICM42622)
+include_directories(include/pico-microphone)
 include_directories(include/ICM20948)
+include_directories(include/arducam_mic)
 
 
-#add_subdirectory("examples/keyword_benchmark")
-add_subdirectory("examples/hello_world")
 add_subdirectory("examples/person_detection")
 add_subdirectory("examples/magic_wand")
 add_subdirectory("examples/micro_speech")
 add_subdirectory("examples/magic_wand_ble")
 
-#add_subdirectory("tests/greedy_memory_planner_test")
-#add_subdirectory("tests/kernel_activations_test")
-#add_subdirectory("tests/kernel_add_test")
-#add_subdirectory("tests/kernel_arg_min_max_test")
-#add_subdirectory("tests/kernel_ceil_test")
-#add_subdirectory("tests/kernel_circular_buffer_test")
-#add_subdirectory("tests/kernel_comparisons_test")
-#add_subdirectory("tests/kernel_concatenation_test")
-#add_subdirectory("tests/kernel_conv_test")
-#add_subdirectory("tests/kernel_depthwise_conv_test")
-#add_subdirectory("tests/kernel_dequantize_test")
-#add_subdirectory("tests/kernel_detection_postprocess_test")
-#add_subdirectory("tests/kernel_elementwise_test")
-#add_subdirectory("tests/kernel_floor_test")
-#add_subdirectory("tests/kernel_fully_connected_test")
-#add_subdirectory("tests/kernel_hard_swish_test")
-#add_subdirectory("tests/kernel_l2norm_test")
-#add_subdirectory("tests/kernel_logical_test")
-#add_subdirectory("tests/kernel_logistic_test")
-#add_subdirectory("tests/kernel_maximum_minimum_test")
-#add_subdirectory("tests/kernel_mul_test")
-#add_subdirectory("tests/kernel_neg_test")
-#add_subdirectory("tests/kernel_pack_test")
-#add_subdirectory("tests/kernel_pad_test")
-#add_subdirectory("tests/kernel_pooling_test")
-#add_subdirectory("tests/kernel_prelu_test")
-#add_subdirectory("tests/kernel_quantization_util_test")
-#add_subdirectory("tests/kernel_quantize_test")
-#add_subdirectory("tests/kernel_reduce_test")
-#add_subdirectory("tests/kernel_reshape_test")
-#add_subdirectory("tests/kernel_resize_nearest_neighbor_test")
-#add_subdirectory("tests/kernel_round_test")
-#add_subdirectory("tests/kernel_shape_test")
-#add_subdirectory("tests/kernel_softmax_test")
-#add_subdirectory("tests/kernel_split_test")
-#add_subdirectory("tests/kernel_split_v_test")
-#add_subdirectory("tests/kernel_strided_slice_test")
-#add_subdirectory("tests/kernel_sub_test")
-#add_subdirectory("tests/kernel_svdf_test")
-#add_subdirectory("tests/kernel_tanh_test")
-#add_subdirectory("tests/kernel_unpack_test")
-#add_subdirectory("tests/linear_memory_planner_test")
-#add_subdirectory("tests/memory_arena_threshold_test")
-#add_subdirectory("tests/memory_helpers_test")
-#add_subdirectory("tests/micro_allocator_test")
-#add_subdirectory("tests/micro_error_reporter_test")
-#add_subdirectory("tests/micro_interpreter_test")
-#add_subdirectory("tests/micro_mutable_op_resolver_test")
-#add_subdirectory("tests/micro_string_test")
-#add_subdirectory("tests/micro_time_test")
-#add_subdirectory("tests/micro_utils_test")
-#add_subdirectory("tests/recording_micro_allocator_test")
-#add_subdirectory("tests/recording_simple_memory_allocator_test")
-#add_subdirectory("tests/simple_memory_allocator_test")
-#add_subdirectory("tests/testing_helpers_test")
