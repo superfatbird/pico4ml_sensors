@@ -112,9 +112,9 @@ bool ReadAccelerometer(tflite::ErrorReporter *error_reporter, float *input,
           sample_skip_counter += 1;
           continue;
         }
-        const float tmp_x = -Accel_Y;
-        const float tmp_y = -Accel_X;
-        const float tmp_z = Accel_Z;
+        const float tmp_x = Accel_Y*ACCELL_Y_DIRECTION;
+        const float tmp_y = Accel_X*ACCELL_X_DIRECTION;
+        const float tmp_z = Accel_Z*ACCELL_Z_DIRECTION;
         // Axis adjustment
         const float norm_x       = -tmp_x;
         const float norm_y       = tmp_y;
