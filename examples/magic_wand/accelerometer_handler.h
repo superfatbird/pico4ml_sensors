@@ -24,7 +24,9 @@ limitations under the License.
 #include <string.h>
 
 #define EXECUTION_TIME 0
-
+#define ACCELL_X_DIRECTION    1
+#define ACCELL_Y_DIRECTION   -1
+#define ACCELL_Z_DIRECTION   -1
 #if EXECUTION_TIME
 #include "tensorflow/lite/micro/micro_time.h"
 #include <climits>
