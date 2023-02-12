@@ -21,12 +21,12 @@ ArduCAM在github上提供的例程主要在https://github.com/ArduCAM/pico-tflmi
 具体函数的实现也在这个.c文件里面，其中有一个要注意的是arducam_init()函数用的输入是结构指针，如何引用结构里面的成员或者如何用结构指针来引用成员参见K&R的131页。
 
 Pico4ml上硬件配置情况：
-主控芯片RP2040
-I2C控制的（SCCB的）相机， HiMax HM01B0, Up to QVGA (320 x 240 @60fps)， SCCB就是一种I2C, serial camera control bus….GPIO3到6、GPIO19到21是和相机模块连接的，也是I2C0的默认GPIO
-I2C控制的IMU，型号ICM20948，  在电路图上看不出IMU是和那个连接的， 在ArduCAM的github的repo （ pico-tflmicro/include/ICM20948/ICM20948.cpp）里面，可以看到定义的I2C连接是连接是I2C0上的。所以IMU和camera应该是不能同时通过I2C0去控制的。 
-SPI的LCD屏幕，0.96 inch LCD SPI Display (160 x 80, ST7735)，GPIO9到13是和LCD连接的
-I2S的麦克， GPIO31到34是和MIC连接的。 Mic的部分有两个IC组成，一个是UCTRONICS-MIC，输出PDM（pulse density modulation），另一个是ADI的ADAU7002，把PDM的信号转成I2S，这个I2S信号连接在RP2040上。
-QSPI的2M的flash， W25Q16JVUXIQ （这个和RPI-pico相同）
+* 主控芯片RP2040
+* I2C控制的（SCCB的）相机， HiMax HM01B0, Up to QVGA (320 x 240 @60fps)， SCCB就是一种I2C, serial camera control bus….GPIO3到6、GPIO19到21是和相机模块连接的，也是I2C0的默认GPIO
+* I2C控制的IMU，型号ICM20948，  在电路图上看不出IMU是和那个连接的， 在ArduCAM的github的repo （ pico-tflmicro/include/ICM20948/ICM20948.cpp）里面，可以看到定义的I2C连接是连接是I2C0上的。所以IMU和camera应该是不能同时通过I2C0去控制的。 
+* SPI的LCD屏幕，0.96 inch LCD SPI Display (160 x 80, ST7735)，GPIO9到13是和LCD连接的
+* I2S的麦克， GPIO31到34是和MIC连接的。 Mic的部分有两个IC组成，一个是UCTRONICS-MIC，输出PDM（pulse density modulation），另一个是ADI的ADAU7002，把PDM的信号转成I2S，这个I2S信号连接在RP2040上。
+* QSPI的2M的flash， W25Q16JVUXIQ （这个和RPI-pico相同）
 
 ## 参考资料：
 
