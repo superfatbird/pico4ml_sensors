@@ -1,0 +1,34 @@
+Connection of arducampico4ml, camera to pico
+
+HM01B0    CAM_D0    SCL    SDA    MCLK    HREF    PCLK    VSYNC
+PICO      GP6       GP5    GP4    GP3     GP15    GP14    GP16
+
+Pin from HM01B0 NOT connected to pico on pico4ml
+TRIG	INT	D1	D2	D3
+
+The video data will be transfered over 1-bit interface in this 
+dev board according to the connection. Only D0 is connected. 
+
+The HM01B0 has 324 by 324 pixels. QVGA is 320x240.
+By setting register 0x3010[0] to 1 will active the QVGA window
+readout. Ref the data sheet for the window pixel range. First 
+pixel to readout is X=0, y=40; I guess the last pixel to readout
+in such case will be x=324, y=284.
+
+The image sensor has five modes, determined by the Mode_select
+register bits 2:0. Mode streaming 1 and mode streaming 2 will be
+the mode of interest of in this case. 
+
+clock, MCLK (need more info)
+
+0x3059[6:5] register bits determine the interface bit width.
+0x3060[4] determine MSB/LSB.
+0x3065[1:0] determine the output pin and INT pin status in 
+		standby mode and streaming mode.
+0x3059,0x3060 register determine the data format, gated vs
+		not gated, LSB vs MSB. Page32, section 6.6.
+
+2 wire serial interface is used to access teh sensor register.
+Host controller should generate SCL clock to sync SDA.
+I2C address of the sensor is 0x24.
+
