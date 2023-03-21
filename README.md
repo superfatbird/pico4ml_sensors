@@ -55,7 +55,7 @@ https://raspberrypi.github.io/pico-sdk-doxygen/index.html
 https://www.uctronics.com/download/Datasheet/HM01B0-MWA-image-sensor-datasheet.pdf 
 5. Yamamoto的帖子
 https://community.element14.com/members-area/personalblogs/b/ralph-yamamoto-s-blog/posts/camera-module-for-raspberry-pi-pico 
-6.Python的pyserial的库
+6. Python的pyserial的库
 https://pyserial.readthedocs.io/en/latest/pyserial_api.html 
 7. Python的PIL(pillow)的库
 https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image.frombytes 
