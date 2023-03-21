@@ -1,3 +1,6 @@
+// This firmware need PC host open serial port to run!!!
+// Otherwise no display on the LCD
+
 #include "DEV_Config.h"
 #include "LCD_st7735.h"
 #include <stdio.h>
